@@ -1,0 +1,35 @@
+#!/bin/sh -e
+
+. "$SNAP/scripts/constants"
+
+broker_host="$(snapctl get broker.host)"
+broker_port="$(snapctl get broker.port)"
+client_username="$(snapctl get client.username)"
+client_password="$(snapctl get client.password)"
+client_cert="$(snapctl get client.cert)"
+client_key="$(snapctl get client.key)"
+broker_ca="$(snapctl get broker.ca)"
+
+cmd="mqtt-client-cli --host=\"$broker_host\" --port=\"$broker_port\""
+
+if [ -n "$client_username" ]; then
+  cmd="$cmd --username=\"$client_username\""
+fi
+
+if [ -n "$client_password" ]; then
+  cmd="$cmd --password=\"$client_password\""
+fi
+
+if [ -n "$client_cert" ]; then
+  cmd="$cmd --cert-file=\"$CLIENT_CERT_FILE\""
+fi
+
+if [ -n "$client_key" ]; then
+  cmd="$cmd --key-file=\"$CLIENT_KEY_FILE\""
+fi
+
+if [ -n "$broker_ca" ]; then
+  cmd="$cmd --ca-file=\"$BROKER_CA_FILE\""
+fi
+
+eval "$cmd"

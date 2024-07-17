@@ -1,0 +1,59 @@
+#!/bin/sh -e
+
+# Supported keys:
+# - broker.host (string = 127.0.0.1)
+#   Host of broker the client should connect to.
+#
+# - broker.port (integer = 1883)
+#   Port of broker the client should connect to.
+#
+# - broker.ca (string)
+#   CA certificates to trust the broker.
+#
+# - client.username (string)
+#   Username to be used by client for authentication.
+#
+# - client.password (string)
+#   Password to be used by client for authentication.
+#
+# - client.cert (string)
+#   Certificate to be used by client for authentication.
+#
+# - client.key (string)
+#   Key to be used by client for authentication.
+
+. "$SNAP/scripts/constants"
+
+handle_client_cert()
+{
+  client_cert="$(snapctl get client.cert)"
+  if [ -z "$client_cert" ]; then
+    rm -f "$CLIENT_CERT_FILE"
+  else
+    echo "$client_cert" > "$CLIENT_CERT_FILE"
+  fi
+}
+
+handle_client_key()
+{
+  client_key="$(snapctl get client.key)"
+  if [ -z "$client_key" ]; then
+    rm -f "$CLIENT_KEY_FILE"
+  else
+    echo "$client_key" > "$CLIENT_KEY_FILE"
+  fi
+}
+
+handle_broker_ca()
+{
+  broker_ca="$(snapctl get broker.ca)"
+  if [ -z "$broker_ca" ]; then
+    rm -f "$BROKER_CA_FILE"
+  else
+    echo "$broker_ca" > "$BROKER_CA_FILE"
+  fi
+}
+
+handle_client_cert
+handle_client_key
+handle_broker_ca

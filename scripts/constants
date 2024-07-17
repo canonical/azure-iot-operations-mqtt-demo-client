@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CLIENT_CERT_FILE=$SNAP_DATA/client.crt
+CLIENT_KEY_FILE=$SNAP_DATA/client.key
+BROKER_CA_FILE=$SNAP_DATA/ca.crt
