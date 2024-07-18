@@ -1,0 +1,29 @@
+name: azure-iot-operations-mqtt-demo-client
+base: core22
+version: '0.1'
+summary: MQTT demo client for Azure IoT Operations
+description: |
+  This is an MQTT demo client to experiment with sending
+  generated data to the MQTT broker of an Azure IoT Operations
+  deployment.
+
+grade: stable
+confinement: strict # use 'strict' once you have the right plugs and slots
+
+parts:
+  mqtt-producer:
+    plugin: python
+    source: src/
+    parse-info:
+      - setup.py
+
+  scripts:
+    plugin: dump
+    source: scripts/
+    organize:
+      '*' : scripts/
+apps:
+  mqtt-producer:
+    command: scripts/run
+    plugs:
+      - network

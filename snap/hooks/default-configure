@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+DEFAULT_BROKER_HOST="127.0.0.1"
+DEFAULT_BROKER_PORT="1883"
+
+snapctl set broker.host="$DEFAULT_BROKER_HOST"
+snapctl set broker.port="$DEFAULT_BROKER_PORT"
