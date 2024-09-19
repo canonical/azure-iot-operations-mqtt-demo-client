@@ -8,7 +8,11 @@ description: |
   deployment.
 
 grade: stable
-confinement: strict # use 'strict' once you have the right plugs and slots
+confinement: strict
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
 
 parts:
   mqtt-producer:
